@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kai Monno — Software Engineer / QA Engineer</title>
+  <meta name="description" content="Kai Monno — Software Engineer / QA Engineer, Oberlin College '26. Portfolio of projects, experience, and skills." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="hero" id="top">
+    <div class="container hero__inner">
+      <p class="hero__eyebrow">Hi, I'm</p>
+      <h1 class="hero__name">Kai Monno</h1>
+      <p class="hero__tagline">Software Engineer / QA Engineer, Oberlin College '26</p>
+      <nav class="hero__links" aria-label="Primary">
+        <a href="https://github.com/KaiMonno" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.58.24 2.75.12 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.67.8.56A10.99 10.99 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          github.com/KaiMonno
+        </a>
+        <a href="https://linkedin.com/in/Kai-Monno" target="_blank" rel="noopener noreferrer" class="link-pill">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
+          linkedin.com/in/Kai-Monno
+        </a>
+        <a href="mailto:kmonno@oberlin.edu" class="link-pill">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm19 2.4-8.53 6.4a1 1 0 0 1-1.2 0L3 6.4V19h18V6.4ZM3.2 5l8.8 6.6L20.8 5H3.2Z"/></svg>
+          kmonno@oberlin.edu
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section__title">About</h2>
+        <p class="about__text">
+          I'm finishing a B.A. in Computer Science with a minor in Mathematics at Oberlin College, graduating in May 2026.
+          I currently do paid technology and data consulting work at ALIA Prod, focused on data validation and client website QA and audits.
+          I also completed a one-month engineering internship at JET in Okayama, Japan, working in a semiconductor cleanroom environment.
+          I'm interested in software engineering, QA and test automation, and hardware-adjacent test and semiconductor roles.
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="projects">
+      <div class="container">
+        <h2 class="section__title">Projects</h2>
+
+        <article class="project">
+          <div class="project__header">
+            <h3 class="project__title">AuditMe</h3>
+            <div class="project__links">
+              <a href="https://auditme.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Live Demo</a>
+              <a href="https://github.com/KaiMonno/AuditMe" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">GitHub</a>
+            </div>
+          </div>
+          <ul class="project__stack" aria-label="Technologies used">
+            <li>Node.js</li><li>Express</li><li>React</li><li>Playwright</li><li>Docker</li>
+          </ul>
+          <p class="project__desc">
+            A website-audit tool: a CLI and web app (Express API, React frontend) sharing one engine, that checks a URL for functional, SEO/metadata, and WCAG accessibility issues using Playwright and axe-core.
+            Wrote 36 automated tests (Node test runner, Supertest, Vitest) covering check logic, API routes, and the frontend, run through a GitHub Actions CI pipeline on every push.
+            Containerized with Docker, deployed to Render, with per-IP rate limiting and an on-demand Gemini-powered plain-English summary of audit findings.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__header">
+            <h3 class="project__title">Taste Collage</h3>
+            <div class="project__links">
+              <a href="https://github.com/KaiMonno/Image-Project" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">GitHub</a>
+            </div>
+          </div>
+          <ul class="project__stack" aria-label="Technologies used">
+            <li>React</li><li>Python</li><li>Flask</li><li>SQLite</li><li>Spotify API</li><li>TMDB API</li><li>Pillow</li>
+          </ul>
+          <p class="project__desc">
+            A full-stack web application that lets users search for a music artist, movie, and television show and generate a custom portrait collage from selected media.
+            The backend integrates the Spotify and TMDB APIs through a Flask server, keeping external API credentials server-side.
+            The React frontend handles search and collage display, with a Pillow-based image-processing pipeline that retrieves, resizes, crops, and combines external images into dynamically generated PNG collages, using SQLite for local catalog metadata and fallback content.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container">
+        <h2 class="section__title">Experience</h2>
+        <ul class="experience-list">
+          <li class="experience-item">
+            <div class="experience-item__main">
+              <span class="experience-item__role">Technology &amp; Data Consultant</span>
+              <span class="experience-item__org">ALIA Prod</span>
+            </div>
+            <span class="experience-item__meta">July 2026 – Present · Remote</span>
+          </li>
+          <li class="experience-item">
+            <div class="experience-item__main">
+              <span class="experience-item__role">Engineering Intern</span>
+              <span class="experience-item__org">JET</span>
+            </div>
+            <span class="experience-item__meta">June – July 2024 · Okayama, Japan</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="skills">
+      <div class="container">
+        <h2 class="section__title">Skills</h2>
+        <ul class="skills-grid">
+          <li>Java</li>
+          <li>Python</li>
+          <li>C/C++</li>
+          <li>SQL</li>
+          <li>JavaScript</li>
+          <li>HTML/CSS</li>
+          <li>React</li>
+          <li>Node.js</li>
+          <li>Express</li>
+          <li>Flask</li>
+          <li>Django</li>
+          <li>MySQL</li>
+          <li>PostgreSQL</li>
+          <li>SQLite</li>
+          <li>Git/GitHub</li>
+          <li>Docker</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section resume-section" id="resume">
+      <div class="container resume-section__inner">
+        <h2 class="section__title">Resume</h2>
+        <p class="resume-section__text">Download my full resume for a complete look at my experience and education.</p>
+        <a href="/resume.pdf" download class="btn btn--primary btn--large">Download Resume (PDF)</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <p class="footer__name">Kai Monno</p>
+      <nav class="footer__links" aria-label="Contact">
+        <a href="mailto:kmonno@oberlin.edu">kmonno@oberlin.edu</a>
+        <a href="https://linkedin.com/in/Kai-Monno" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/KaiMonno" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

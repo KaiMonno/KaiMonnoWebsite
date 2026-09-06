@@ -111,6 +111,19 @@ body {
   flex-shrink: 0;
 }
 
+/* ---------- Fun Facts ---------- */
+.funfacts__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.emoji {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
 /* ---------- Sections ---------- */
 .section {
   padding: 72px 0;

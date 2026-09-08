@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kai Monno — Software Engineer / QA Engineer</title>
   <meta name="description" content="Kai Monno — Software Engineer / QA Engineer, Oberlin College '26. Portfolio of projects, experience, and skills." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kai Monno — Software Engineer / QA Engineer" />
+  <meta property="og:description" content="Portfolio of projects, experience, and skills." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kai Monno — Software Engineer / QA Engineer" />
+  <meta name="twitter:description" content="Portfolio of projects, experience, and skills." />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5fff'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3EKM%3C/text%3E%3C/svg%3E" />
+
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +22,22 @@
 </head>
 <body>
 
+  <nav class="topnav" aria-label="Section navigation">
+    <div class="container topnav__inner">
+      <a href="#top" class="topnav__brand">KM</a>
+      <div class="topnav__links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#fun-facts">Fun Facts</a>
+        <a href="#resume">Resume</a>
+      </div>
+    </div>
+  </nav>
+
   <header class="hero" id="top">
+    <div class="hero__glow" aria-hidden="true"></div>
     <div class="container hero__inner">
       <p class="hero__eyebrow">Hi, I'm</p>
       <h1 class="hero__name">Kai Monno</h1>
@@ -93,20 +118,26 @@
     <section class="section" id="experience">
       <div class="container">
         <h2 class="section__title">Experience</h2>
-        <ul class="experience-list">
-          <li class="experience-item">
-            <div class="experience-item__main">
-              <span class="experience-item__role">Technology &amp; Data Consultant</span>
-              <span class="experience-item__org">ALIA Prod</span>
+        <ul class="timeline">
+          <li class="timeline__item">
+            <span class="timeline__dot" aria-hidden="true"></span>
+            <div class="timeline__content">
+              <div class="timeline__row">
+                <span class="timeline__role">Technology &amp; Data Consultant</span>
+                <span class="timeline__org">ALIA Prod</span>
+              </div>
+              <span class="timeline__meta">July 2026 – Present · Remote</span>
             </div>
-            <span class="experience-item__meta">July 2026 – Present · Remote</span>
           </li>
-          <li class="experience-item">
-            <div class="experience-item__main">
-              <span class="experience-item__role">Engineering Intern</span>
-              <span class="experience-item__org">JET</span>
+          <li class="timeline__item">
+            <span class="timeline__dot" aria-hidden="true"></span>
+            <div class="timeline__content">
+              <div class="timeline__row">
+                <span class="timeline__role">Engineering Intern</span>
+                <span class="timeline__org">JET</span>
+              </div>
+              <span class="timeline__meta">June – July 2024 · Okayama, Japan</span>
             </div>
-            <span class="experience-item__meta">June – July 2024 · Okayama, Japan</span>
           </li>
         </ul>
       </div>
@@ -172,6 +203,7 @@
         <a href="https://linkedin.com/in/Kai-Monno" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/KaiMonno" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
+      <a href="#top" class="footer__top">Back to top ↑</a>
     </div>
   </footer>
 

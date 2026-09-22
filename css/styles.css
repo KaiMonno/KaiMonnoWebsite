@@ -72,6 +72,18 @@ header[id] {
   scroll-margin-top: 76px;
 }
 
+/* ---------- Scroll progress ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  z-index: 60;
+  transition: width 0.12s linear;
+}
+
 /* ---------- Top nav ---------- */
 .topnav {
   position: sticky;
@@ -112,6 +124,7 @@ header[id] {
 }
 
 .topnav__links a {
+  position: relative;
   white-space: nowrap;
   text-decoration: none;
   color: var(--text-muted);
@@ -122,9 +135,28 @@ header[id] {
   transition: background 0.15s ease, color 0.15s ease;
 }
 
+.topnav__links a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
 .topnav__links a:hover {
   color: var(--text);
   background: var(--pill-bg);
+}
+
+.topnav__links a:hover::after,
+.topnav__links a:focus-visible::after {
+  transform: scaleX(1);
 }
 
 /* ---------- Hero ---------- */
@@ -214,6 +246,17 @@ header[id] {
   flex-shrink: 0;
 }
 
+.link-pill:hover .icon,
+.link-pill:hover .emoji {
+  animation: pill-bounce 0.5s ease;
+}
+
+@keyframes pill-bounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  30% { transform: translateY(-3px) rotate(-6deg); }
+  60% { transform: translateY(0.5px) rotate(3deg); }
+}
+
 /* ---------- Fun Facts ---------- */
 .funfacts__gallery {
   display: grid;
@@ -230,6 +273,12 @@ header[id] {
   border: 1px solid var(--border);
   background: var(--surface);
   box-shadow: var(--shadow);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.funfacts__photo:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
 
 .funfacts__photo img {
@@ -238,6 +287,11 @@ header[id] {
   height: 100%;
   aspect-ratio: 1000 / 958;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.funfacts__photo:hover img {
+  transform: scale(1.06);
 }
 
 .funfacts__photo figcaption {
@@ -301,6 +355,8 @@ header[id] {
   margin-bottom: 28px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .project::before {
@@ -370,6 +426,8 @@ header[id] {
 
 /* ---------- Buttons ---------- */
 .btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -381,6 +439,22 @@ header[id] {
   transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   border: 1px solid var(--border);
   white-space: nowrap;
+}
+
+.btn__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 35%, transparent);
+  transform: scale(0);
+  animation: btn-ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes btn-ripple {
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 .btn--ghost {
@@ -597,5 +671,21 @@ header[id] {
   .footer__inner {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

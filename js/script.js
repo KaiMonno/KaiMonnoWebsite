@@ -15,8 +15,30 @@ document.addEventListener("DOMContentLoaded", () => {
     initStagger("#experience .container", ".timeline__item", 90);
     initStagger("#fun-facts .container", ".funfacts__photo", 90);
     initCardTilt();
+    initNameShimmer();
   }
   initButtonRipple(reduceMotion);
+
+  // ---------- Split the hero name into per-character spans ----------
+  // Lets the hover shimmer (css) stagger a wave across individual
+  // letters instead of sweeping the whole name as one block.
+  function initNameShimmer() {
+    const el = document.querySelector(".hero__name");
+    if (!el) return;
+
+    const text = el.textContent;
+    el.setAttribute("aria-label", text);
+    el.innerHTML = "";
+
+    Array.from(text).forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.className = "char";
+      span.style.setProperty("--i", i);
+      span.textContent = ch === " " ? " " : ch;
+      span.setAttribute("aria-hidden", "true");
+      el.appendChild(span);
+    });
+  }
 
   // ---------- Scroll progress bar ----------
   function initScrollProgress() {

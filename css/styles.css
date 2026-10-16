@@ -194,13 +194,35 @@ header[id] {
 
 .hero__name {
   margin: 0 0 12px;
-  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-size: clamp(3.5rem, 11vw, 7rem);
   font-weight: 800;
   letter-spacing: -0.03em;
+  cursor: default;
+}
+
+.hero__name .char {
+  display: inline-block;
   background: linear-gradient(135deg, var(--text) 40%, var(--accent) 120%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.hero__name:hover .char {
+  animation: name-shimmer 1.3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 45ms);
+}
+
+@keyframes name-shimmer {
+  0%,
+  100% {
+    filter: brightness(1) saturate(1);
+    text-shadow: none;
+  }
+  50% {
+    filter: brightness(1.6) saturate(1.4);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
 }
 
 .hero__tagline {

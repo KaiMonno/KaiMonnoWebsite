@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  initThemeToggle();
   initScrollProgress();
   initSectionFade(reduceMotion);
   if (!reduceMotion) {
@@ -18,6 +19,29 @@ document.addEventListener("DOMContentLoaded", () => {
     initNameShimmer();
   }
   initButtonRipple(reduceMotion);
+
+  // ---------- Dark/light mode toggle ----------
+  // The initial attribute (if a choice was saved) is already applied
+  // by the inline script in <head>, before first paint. This just
+  // wires up the click.
+  function initThemeToggle() {
+    const btn = document.getElementById("themeToggle");
+    if (!btn) return;
+
+    const root = document.documentElement;
+
+    btn.addEventListener("click", () => {
+      const systemDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      const current = root.getAttribute("data-theme") || (systemDark ? "dark" : "light");
+      const next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch (e) {}
+    });
+  }
 
   // ---------- Split the hero name into per-character spans ----------
   // Lets the hover shimmer (css) stagger a wave across individual

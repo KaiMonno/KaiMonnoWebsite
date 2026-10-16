@@ -18,8 +18,9 @@
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* System dark preference, unless the toggle has explicitly set light */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0f1115;
     --bg-alt: #161922;
     --surface: #14171f;
@@ -36,6 +37,23 @@
   }
 }
 
+/* Toggle explicitly set to dark, regardless of system preference */
+:root[data-theme="dark"] {
+  --bg: #0f1115;
+  --bg-alt: #161922;
+  --surface: #14171f;
+  --text: #f0f1f4;
+  --text-muted: #9aa1ad;
+  --border: #262a34;
+  --accent: #6c8fff;
+  --accent-2: #a78bfa;
+  --accent-hover: #8aa5ff;
+  --pill-bg: #1d212b;
+  --pill-text: #f0f1f4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.28);
+  --shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.25), 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
 * { box-sizing: border-box; }
 
 html {
@@ -49,6 +67,7 @@ body {
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -159,6 +178,67 @@ header[id] {
   transform: scaleX(1);
 }
 
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  margin-left: 4px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--bg);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  transform: translateY(-1px);
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle__icon--sun {
+  display: none;
+}
+
+.theme-toggle__icon--moon {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle__icon--sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle__icon--moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--moon {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle__icon--sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle__icon--moon {
+  display: block;
+}
+
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
@@ -183,13 +263,6 @@ header[id] {
 .hero__inner {
   position: relative;
   z-index: 1;
-}
-
-.hero__eyebrow {
-  margin: 0 0 8px;
-  font-size: 1rem;
-  color: var(--text-muted);
-  font-weight: 500;
 }
 
 .hero__name {

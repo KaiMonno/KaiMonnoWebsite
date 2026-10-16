@@ -81,6 +81,41 @@
 
         <article class="project">
           <div class="project__header">
+            <h3 class="project__title">Aboulomania</h3>
+            <div class="project__links">
+              <a href="https://www.aboulomania.com/" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Live Demo</a>
+              <a href="https://github.com/KaiMonno/GameTaste" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">GitHub</a>
+            </div>
+          </div>
+          <ul class="project__stack" aria-label="Technologies used">
+            <li>Next.js</li><li>FastAPI</li><li>PostgreSQL</li><li>Redis</li><li>Docker</li><li>Claude API</li>
+          </ul>
+          <p class="project__desc">
+            An AI game recommender, built with a collaborator: a FastAPI/PostgreSQL backend and Next.js frontend that rank IGDB's game catalog against a user's filters (platform, genre, length via HowLongToBeat data), then generate a live, personalized "why you'll like it" explanation with Claude for each result.
+            Supports full accounts via Clerk, with saved preference defaults, a wishlist, and Steam library import (OpenID sign-in or a pasted profile URL) that automatically excludes owned and already-played games from future recommendations.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__header">
+            <h3 class="project__title">ZeroCatch</h3>
+            <div class="project__links">
+              <a href="https://zerocatch.dev" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Live Demo</a>
+              <a href="https://github.com/KaiMonno/ZeroCatch" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">GitHub</a>
+            </div>
+          </div>
+          <ul class="project__stack" aria-label="Technologies used">
+            <li>Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>Supabase</li><li>Python</li><li>Claude API</li>
+          </ul>
+          <p class="project__desc">
+            A deal aggregator that only lists verified, no-strings-attached free offers and instant-cancel trials, with no affiliate links or hidden card traps.
+            Python scrapers run nightly via GitHub Actions: trusted sources (Epic, Steam, GOG, itch.io) publish automatically, while ambiguous leads (PR Newswire, Instagram) are routed through a Claude-based judge with deterministic guardrails before anything goes live.
+            Built on Next.js and Supabase Postgres with row-level security, Google sign-in, a crowd-sourced "report a problem" moderation flow, and an installable PWA frontend.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__header">
             <h3 class="project__title">AuditMe</h3>
             <div class="project__links">
               <a href="https://auditme.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">Live Demo</a>

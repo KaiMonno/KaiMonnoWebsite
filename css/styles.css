@@ -246,16 +246,32 @@ header[id] {
   text-align: center;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
+  background-image: url("img/hero-bg.jpg");
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
 }
 
-.hero__glow {
+/* Prefer the AVIF (smaller, same source photo) where supported */
+@supports (background-image: image-set(url("img/hero-bg.avif") type("image/avif"))) {
+  .hero {
+    background-image: image-set(url("img/hero-bg.avif") type("image/avif"));
+  }
+}
+
+/* Darkens the photo so white text stays reliably legible everywhere it
+   could be cropped to, verified against the image's actual brightest
+   region (the sky), not just eyeballed. */
+.hero__scrim {
   position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 480px;
-  background:
-    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 55%),
-    radial-gradient(circle at 75% 10%, color-mix(in srgb, var(--accent-2) 20%, transparent) 0%, transparent 55%);
-  filter: blur(30px);
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 6, 10, 0.62) 0%,
+    rgba(6, 6, 10, 0.42) 38%,
+    rgba(6, 6, 10, 0.42) 68%,
+    rgba(6, 6, 10, 0.68) 100%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -271,14 +287,12 @@ header[id] {
   font-weight: 800;
   letter-spacing: 0.06em;
   cursor: default;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
 }
 
 .hero__name .char {
   display: inline-block;
-  background: var(--accent);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #fff;
 }
 
 .hero__name:hover .char {
@@ -289,12 +303,12 @@ header[id] {
 @keyframes name-shimmer {
   0%,
   100% {
-    filter: brightness(1) saturate(1);
-    text-shadow: none;
+    filter: brightness(1);
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
   }
   50% {
-    filter: brightness(1.6) saturate(1.4);
-    text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+    filter: brightness(1.35);
+    text-shadow: 0 0 20px rgba(108, 143, 255, 0.9), 0 0 38px rgba(124, 92, 255, 0.55);
   }
 }
 
@@ -302,8 +316,9 @@ header[id] {
   margin: 0 auto 32px;
   max-width: 560px;
   font-size: clamp(1.05rem, 2.4vw, 1.25rem);
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.88);
   font-weight: 500;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
 }
 
 .hero__links {
@@ -311,6 +326,26 @@ header[id] {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+}
+
+/* The hero sits on a photo now, so its pills get a frosted-glass
+   treatment instead of the theme-aware pill-bg used elsewhere
+   (Fun Facts keeps the normal style). */
+.hero .link-pill {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero .link-pill:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.hero :focus-visible {
+  outline-color: #fff;
 }
 
 .link-pill {

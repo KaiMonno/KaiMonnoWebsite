@@ -246,16 +246,25 @@ header[id] {
   text-align: center;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
-  background-image: url("img/hero-bg.jpg");
+  background-image: url("../img/hero-bg.jpg");
   background-size: cover;
   background-position: center 40%;
   background-repeat: no-repeat;
 }
 
-/* Prefer the AVIF (smaller, same source photo) where supported */
-@supports (background-image: image-set(url("img/hero-bg.avif") type("image/avif"))) {
+/* Prefer the AVIF (smaller, same source photo) where supported.
+   Safari historically needs the -webkit- prefixed image-set(), so
+   both are checked; the plain url() above is the fallback either
+   way if neither @supports block matches. */
+@supports (background-image: image-set(url("../img/hero-bg.avif") type("image/avif"))) {
   .hero {
-    background-image: image-set(url("img/hero-bg.avif") type("image/avif"));
+    background-image: image-set(url("../img/hero-bg.avif") type("image/avif"));
+  }
+}
+
+@supports (background-image: -webkit-image-set(url("../img/hero-bg.avif") type("image/avif"))) {
+  .hero {
+    background-image: -webkit-image-set(url("../img/hero-bg.avif") type("image/avif"));
   }
 }
 

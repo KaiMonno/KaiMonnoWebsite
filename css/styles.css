@@ -656,6 +656,14 @@ header[id] {
   white-space: nowrap;
 }
 
+.timeline__desc {
+  flex-basis: 100%;
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  max-width: 680px;
+}
+
 /* ---------- Skills ---------- */
 .skills-grid {
   list-style: none;

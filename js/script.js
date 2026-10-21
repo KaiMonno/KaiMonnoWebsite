@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollProgress();
   initSectionFade(reduceMotion);
   initFuzzyName(reduceMotion);
+  initNoise(reduceMotion);
   if (!reduceMotion) {
     initStagger("#projects .container", ".project", 90);
     initStagger("#skills .container", ".skills-grid li", 25);
@@ -149,6 +150,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("beforeunload", () => {
       if (rafId) cancelAnimationFrame(rafId);
+    });
+  }
+
+  // ---------- Film-grain noise over the hero photo ----------
+  // Matches the React Bits <Noise /> config requested: opacity 0.2,
+  // size 1 (256px tile), fps 24, blendMode overlay, contrast 0.6,
+  // colored false (grayscale), dust/scratches/scanlines/flicker all
+  // off. Generates one static noise tile on a canvas, blob-URLs it
+  // as the layer's background-image (matching the real component's
+  // approach), then only animates background-position, throttled to
+  // the configured fps rather than every rendered frame. Pauses
+  // while the hero is off-screen; skips the animation loop entirely
+  // under prefers-reduced-motion (still shows the static tile).
+  function initNoise(reduceMotion) {
+    const el = document.querySelector(".hero__noise");
+    if (!el) return;
+    const probe = document.createElement("canvas");
+    if (typeof probe.getContext !== "function") return;
+
+    const TILE = 256; // size: 1
+    const FPS = 24;
+    const CONTRAST = 0.6;
+    const COLORED = false;
+
+    const tileCanvas = document.createElement("canvas");
+    tileCanvas.width = TILE;
+    tileCanvas.height = TILE;
+    const tctx = tileCanvas.getContext("2d");
+    if (!tctx) return;
+
+    const imageData = tctx.createImageData(TILE, TILE);
+    const data = imageData.data;
+    const randChannel = () => {
+      const n = (Math.random() - 0.5) * 2; // -1..1
+      return Math.max(0, Math.min(255, Math.round(128 + n * 128 * CONTRAST)));
+    };
+    for (let i = 0; i < data.length; i += 4) {
+      if (COLORED) {
+        data[i] = randChannel();
+        data[i + 1] = randChannel();
+        data[i + 2] = randChannel();
+      } else {
+        const v = randChannel();
+        data[i] = v;
+        data[i + 1] = v;
+        data[i + 2] = v;
+      }
+      data[i + 3] = 255;
+    }
+    tctx.putImageData(imageData, 0, 0);
+
+    tileCanvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      el.style.backgroundImage = `url(${url})`;
+
+      if (reduceMotion) return; // static tile only, no position animation
+
+      let visible = true;
+      const hero = el.closest(".hero");
+      if (hero && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              visible = entry.isIntersecting;
+            });
+          },
+          { threshold: 0 }
+        );
+        io.observe(hero);
+      }
+
+      const frameInterval = 1000 / FPS;
+      let lastTime = 0;
+
+      function tick(time) {
+        if (visible && time - lastTime >= frameInterval) {
+          lastTime = time;
+          const x = Math.floor(Math.random() * TILE);
+          const y = Math.floor(Math.random() * TILE);
+          el.style.backgroundPosition = `${x}px ${y}px`;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
     });
   }
 

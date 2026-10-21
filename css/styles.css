@@ -285,40 +285,65 @@ header[id] {
   z-index: 0;
 }
 
+/* Animated film-grain texture over the photo, under the content.
+   Overscanned (inset: -50px) so the position-jitter never reveals
+   an edge. Neutralized automatically by the site-wide
+   prefers-reduced-motion rule (animation-duration: 0.001ms). */
+.hero__noise {
+  position: absolute;
+  inset: -50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0.2126 0.7152 0.0722 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+  animation: noise-shift 1s steps(8) infinite;
+}
+
+@keyframes noise-shift {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-3%, -8%); }
+  20% { transform: translate(-12%, 4%); }
+  30% { transform: translate(6%, -10%); }
+  40% { transform: translate(-6%, 10%); }
+  50% { transform: translate(9%, 2%); }
+  60% { transform: translate(-9%, -4%); }
+  70% { transform: translate(4%, 9%); }
+  80% { transform: translate(-4%, -9%); }
+  90% { transform: translate(10%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
 .hero__inner {
   position: relative;
   z-index: 1;
 }
 
 .hero__name {
+  position: relative;
   margin: 0 0 12px;
   font-size: clamp(3.75rem, 13vw, 8.5rem);
   font-weight: 800;
   letter-spacing: 0.06em;
   cursor: default;
+  color: #fff;
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
 }
 
-.hero__name .char {
-  display: inline-block;
-  color: #fff;
+/* Once JS confirms the canvas is drawing, the live text is hidden
+   (color only, not display/visibility - still reachable to screen
+   readers) and the canvas renders the vibrating "fuzzy text" version
+   on top. If JS never runs, the plain white text above stays visible. */
+.hero__name.has-fuzzy-canvas {
+  color: transparent;
 }
 
-.hero__name:hover .char {
-  animation: name-shimmer 1.3s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 45ms);
-}
-
-@keyframes name-shimmer {
-  0%,
-  100% {
-    filter: brightness(1);
-    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
-  }
-  50% {
-    filter: brightness(1.35);
-    text-shadow: 0 0 20px rgba(108, 143, 255, 0.9), 0 0 38px rgba(124, 92, 255, 0.55);
-  }
+.hero__name canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .hero__tagline {

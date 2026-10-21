@@ -315,21 +315,16 @@ header[id] {
   cursor: default;
   color: #fff;
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
+  transition: filter 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* Once JS confirms the canvas is drawing, the live text is hidden
-   (color only, not display/visibility - still reachable to screen
-   readers) and the canvas renders the vibrating "fuzzy text" version
-   on top. If JS never runs, the plain white text above stays visible. */
-.hero__name.has-fuzzy-canvas {
-  color: transparent;
-}
-
-.hero__name canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+/* CSS-only hover (a transition, not a looping animation) - costs
+   nothing while idle, unlike the canvas-based "fuzzy text" effect
+   this replaced, which redrew the name every frame continuously and
+   was the actual source of the reported lag. */
+.hero__name:hover {
+  filter: brightness(1.15);
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5), 0 0 26px rgba(108, 143, 255, 0.65);
 }
 
 .hero__tagline {

@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initThemeToggle();
   initScrollProgress();
   initSectionFade(reduceMotion);
-  initFuzzyName(reduceMotion);
   initNoise(reduceMotion);
   if (!reduceMotion) {
     initStagger("#projects .container", ".project", 90);
@@ -41,115 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         localStorage.setItem("theme", next);
       } catch (e) {}
-    });
-  }
-
-  // ---------- "Fuzzy text" hero name (canvas) ----------
-  // Redraws the name in thin horizontal bands each frame, each band
-  // offset sideways by a small random amount - a continuous vibrate/
-  // static-flicker look, stronger while hovered. The real text node
-  // stays in the DOM underneath (just color: transparent via the
-  // has-fuzzy-canvas class), so screen readers and no-JS visitors
-  // still get plain readable text.
-  function initFuzzyName(reduceMotion) {
-    const el = document.querySelector(".hero__name");
-    if (!el) return;
-    const probe = document.createElement("canvas");
-    if (typeof probe.getContext !== "function") return;
-
-    const text = el.textContent;
-    const canvas = document.createElement("canvas");
-    canvas.setAttribute("aria-hidden", "true");
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let width = 0;
-    let height = 0;
-    let fontSpec = "";
-    let letterSpacingPx = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    function measure() {
-      const rect = el.getBoundingClientRect();
-      width = Math.max(1, Math.round(rect.width));
-      height = Math.max(1, Math.round(rect.height));
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-
-      const cs = getComputedStyle(el);
-      fontSpec = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-      const ls = parseFloat(cs.letterSpacing);
-      letterSpacingPx = Number.isFinite(ls) ? ls : 0;
-    }
-
-    function applyTextStyle() {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, width, height);
-      ctx.font = fontSpec;
-      if ("letterSpacing" in ctx) ctx.letterSpacing = `${letterSpacingPx}px`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = "#fff";
-      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-      ctx.shadowBlur = 20;
-    }
-
-    function drawStill() {
-      applyTextStyle();
-      ctx.fillText(text, width / 2, height / 2);
-    }
-
-    let hovering = false;
-    let rafId = null;
-
-    function drawFuzzyFrame() {
-      applyTextStyle();
-
-      const intensity = hovering ? 5 : 1.6;
-      const bandHeight = 4;
-
-      for (let y = 0; y < height; y += bandHeight) {
-        const offsetX = (Math.random() * 2 - 1) * intensity;
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(0, y, width, bandHeight);
-        ctx.clip();
-        ctx.translate(offsetX, 0);
-        ctx.fillText(text, width / 2, height / 2);
-        ctx.restore();
-      }
-
-      rafId = requestAnimationFrame(drawFuzzyFrame);
-    }
-
-    measure();
-    if (width < 2 || height < 2) return; // layout not ready; bail gracefully
-
-    el.appendChild(canvas);
-    el.classList.add("has-fuzzy-canvas");
-
-    if (reduceMotion) {
-      drawStill();
-      return; // static render only, no animation loop or hover handlers
-    }
-
-    canvas.addEventListener("mouseenter", () => {
-      hovering = true;
-    });
-    canvas.addEventListener("mouseleave", () => {
-      hovering = false;
-    });
-
-    rafId = requestAnimationFrame(drawFuzzyFrame);
-
-    let resizeTimer = null;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(measure, 120);
-    });
-
-    window.addEventListener("beforeunload", () => {
-      if (rafId) cancelAnimationFrame(rafId);
     });
   }
 
